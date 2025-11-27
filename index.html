@@ -91,7 +91,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                             </button>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">Currently serving Michigan • More states coming soon</p>
+                        <p class="text-xs text-gray-500 mt-2">Website coming soon</p>
                     </div>
                 </div>
 
@@ -121,14 +121,14 @@
                         1
                     </div>
                     <h3 class="text-xl font-bold mb-2">Describe the Problem</h3>
-                    <p class="text-gray-600">Tell our AI chatbot what's wrong with your car—text, voice, or upload a photo</p>
+                    <p class="text-gray-600">Tell our AI chatbot what's wrong with your car—text, voice, or easy option buttons</p>
                 </div>
 
                 <div class="text-center">
                     <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold" style="background-color: #0070C0;">
                         2
                     </div>
-                    <h3 class="text-xl font-bold mb-2">AI Diagnoses</h3>
+                    <h3 class="text-xl font-bold mb-2">AI Assessment</h3>
                     <p class="text-gray-600">Our AI asks follow-up questions like a real mechanic and provides likely diagnoses</p>
                 </div>
 
@@ -137,7 +137,7 @@
                         3
                     </div>
                     <h3 class="text-xl font-bold mb-2">Get Matched</h3>
-                    <p class="text-gray-600">We manage the quotes from verified shops based on your preferences — compare the quotes based on fair pricing insights — and provide you recommendations</p>
+                    <p class="text-gray-600">We gather the quotes from shops based on your preferences — compare the quotes based on fair pricing insights</p>
                 </div>
 
                 <div class="text-center">
@@ -145,7 +145,7 @@
                         4
                     </div>
                     <h3 class="text-xl font-bold mb-2">Book & Track</h3>
-                    <p class="text-gray-600">We schedule your appointment and track repair progress in real-time. No more wondering "is it done yet?</p>
+                    <p class="text-gray-600">We automatically schedule your appointment and even book a tow truck.</p>
                 </div>
             </div>
         </div>
@@ -253,16 +253,12 @@
         const waitlistEmailInput = document.getElementById('waitlist-email');
 
         getStartedBtn.addEventListener('click', () => {
-            const zipCode = zipCodeInput.value;
-            const zipNum = parseInt(zipCode);
-            const isMichigan = zipNum >= 48000 && zipNum <= 49999;
+        const zipCode = zipCodeInput.value;
 
-            if (zipCode && !isMichigan) {
-                waitlistModal.classList.remove('hidden');
-            } else if (zipCode && isMichigan) {
-                window.location.href = '/chat';
-            } else {
-                alert('Please enter a ZIP code');
+        if (zipCode) {
+        waitlistModal.classList.remove('hidden');
+        } else {
+        alert('Please enter a ZIP code');
             }
         });
 
