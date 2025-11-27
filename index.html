@@ -1,33 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RepairPlug - Coming Soon</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RepairPlug - AI Car Repair Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .play-button {
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-left: 12px solid #1f2937;
+            border-bottom: 8px solid transparent;
+            margin-left: 4px;
+        }
+    </style>
 </head>
-<body>
-  <div class="main-content">
-    <!-- Logo with wrench integrated -->
-    <div class="logo-section">
-      <img src="LOGO.png" alt="RepairPlug" class="logo">
+<body class="min-h-screen bg-white text-black">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="LOGO.png" alt="Logo" width="100" height="27">
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#for-shops" class="text-gray-700 hover:text-gray-900">For Shops</a>
+                    <button class="px-4 py-2 text-white rounded-lg" style="background-color: #0070C0;">
+                        Sign In
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden" id="mobile-menu-btn">
+                    <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg id="close-icon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#for-shops" class="block text-gray-700">For Shops</a>
+                <button class="w-full px-4 py-2 text-white rounded-lg" style="background-color: #0070C0;">
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-gray-50 to-gray-100 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl font-bold mb-6" style="font-family: 'Montserrat', sans-serif;">
+                        Your AI Car Repair Assistant —
+                        <span style="color: #0070C0;"> We Handle Everything!</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8">
+                        A remote control for your car's repair—automating every step from issue to appointment. 
+                        Tell our AI chat what you need to get your car fixed and TADA it's done!
+                    </p>
+
+                    <!-- ZIP Code Input -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <label class="block text-sm font-medium mb-2">Enter your ZIP code to get started</label>
+                        <div class="flex gap-3">
+                            <div class="flex-1 relative">
+                                <svg class="absolute left-3 top-3 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <input
+                                    type="text"
+                                    id="zip-code"
+                                    maxlength="5"
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="48000"
+                                />
+                            </div>
+                            <button
+                                id="get-started-btn"
+                                class="px-6 py-3 text-white font-semibold rounded-lg flex items-center gap-2 hover:opacity-90 transition"
+                                style="background-color: #0070C0;"
+                            >
+                                Get My Car Fixed
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Currently serving Michigan • More states coming soon</p>
+                    </div>
+                </div>
+
+                <!-- Video Placeholder -->
+                <div id="video-container" class="bg-gray-200 rounded-xl aspect-video flex items-center justify-center overflow-hidden">
+                    <div id="video-placeholder" class="text-center">
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 cursor-pointer hover:bg-gray-50 transition">
+                            <div class="play-button"></div>
+                        </div>
+                        <p class="text-gray-600 font-medium">Watch: How RepairPlug Works</p>
+                        <p class="text-sm text-gray-500">2 min explainer video</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-white -mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-4">How It Works</h2>
+            <p class="text-xl text-gray-600 text-center mb-10">Get your car fixed in 4 automated steps</p>
+
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold" style="background-color: #0070C0;">
+                        1
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Describe the Problem</h3>
+                    <p class="text-gray-600">Tell our AI chatbot what's wrong with your car—text, voice, or upload a photo</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold" style="background-color: #0070C0;">
+                        2
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">AI Diagnoses</h3>
+                    <p class="text-gray-600">Our AI asks follow-up questions like a real mechanic and provides likely diagnoses</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold" style="background-color: #0070C0;">
+                        3
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Get Matched</h3>
+                    <p class="text-gray-600">We manage the quotes from verified shops based on your preferences — compare the quotes based on fair pricing insights — and provide you recommendations</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold" style="background-color: #0070C0;">
+                        4
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Book & Track</h3>
+                    <p class="text-gray-600">We schedule your appointment and track repair progress in real-time. No more wondering "is it done yet?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlist-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-8">
+            <h3 class="text-2xl font-bold mb-4">Join the Waitlist</h3>
+            <p class="text-gray-600 mb-6">
+                We're rapidly expanding—join the waitlist to be notified when RepairPlug comes to your area!
+            </p>
+            <input
+                type="email"
+                id="waitlist-email"
+                placeholder="Your email address"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <div class="flex gap-3">
+                <button
+                    id="cancel-waitlist"
+                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+                >
+                    Cancel
+                </button>
+                <button
+                    id="join-waitlist"
+                    class="flex-1 px-4 py-3 text-white rounded-lg hover:opacity-90"
+                    style="background-color: #0070C0;"
+                >
+                    Join Waitlist
+                </button>
+            </div>
+        </div>
     </div>
-    
-    <!-- Tagline -->
-    <h2 class="tagline">Your Remote Control for Car Repairs</h2>
-    
-    <!-- Coming Soon -->
-    <p class="coming-soon">Coming Soon</p>
-    
-    <!-- Contact -->
-    <p class="contact">
-      Questions or Want to be notified when this site is launched? <a href="mailto:info@repair-plug.com">info@repair-plug.com</a>
-    </p>
-  </div>
-  
-  <!-- Hand with Remote (fixed bottom left) -->
-  <div class="hand-remote">
-    <img src="remote-control.gif" alt="Hand with Remote">
-  </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">
+                        <span style="color: #0070C0;">Repair</span>
+                        <span>Plug</span>
+                    </div>
+                    <p class="text-gray-400">AI-powered car repair marketplace</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 RepairPlug. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        // Video play functionality
+        const videoContainer = document.getElementById('video-container');
+        const videoPlaceholder = document.getElementById('video-placeholder');
+
+        videoPlaceholder.addEventListener('click', () => {
+            videoContainer.innerHTML = `
+                <iframe
+                    class="w-full h-full"
+                    src="https://www.youtube.com/embed/jkABpf-edSs?autoplay=1"
+                    title="How RepairPlug Works"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
+            `;
+        });
+
+        // Get Started button functionality
+        const getStartedBtn = document.getElementById('get-started-btn');
+        const zipCodeInput = document.getElementById('zip-code');
+        const waitlistModal = document.getElementById('waitlist-modal');
+        const cancelWaitlistBtn = document.getElementById('cancel-waitlist');
+        const joinWaitlistBtn = document.getElementById('join-waitlist');
+        const waitlistEmailInput = document.getElementById('waitlist-email');
+
+        getStartedBtn.addEventListener('click', () => {
+            const zipCode = zipCodeInput.value;
+            const zipNum = parseInt(zipCode);
+            const isMichigan = zipNum >= 48000 && zipNum <= 49999;
+
+            if (zipCode && !isMichigan) {
+                waitlistModal.classList.remove('hidden');
+            } else if (zipCode && isMichigan) {
+                window.location.href = '/chat';
+            } else {
+                alert('Please enter a ZIP code');
+            }
+        });
+
+        cancelWaitlistBtn.addEventListener('click', () => {
+            waitlistModal.classList.add('hidden');
+        });
+
+        joinWaitlistBtn.addEventListener('click', () => {
+            const email = waitlistEmailInput.value;
+            if (email) {
+                alert("Thanks for joining! We'll notify you soon.");
+                waitlistModal.classList.add('hidden');
+                waitlistEmailInput.value = '';
+            } else {
+                alert('Please enter your email address');
+            }
+        });
+
+        // Close modal when clicking outside
+        waitlistModal.addEventListener('click', (e) => {
+            if (e.target === waitlistModal) {
+                waitlistModal.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 </html>
