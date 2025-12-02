@@ -252,13 +252,44 @@
         const joinWaitlistBtn = document.getElementById('join-waitlist');
         const waitlistEmailInput = document.getElementById('waitlist-email');
 
-        getStartedBtn.addEventListener('click', () => {
-        const zipCode = zipCodeInput.value;
-
-        if (zipCode) {
-        waitlistModal.classList.remove('hidden');
-        } else {
-        alert('Please enter a ZIP code');
+        joinWaitlistBtn.addEventListener('click', async () => {
+            const email = waitlistEmailInput.value;
+            const zipCode = zipCodeInput.value;
+            
+            if (email) {
+                const FORM_ID = '1FAIpQLSfNkOM1o2QgWY10mIGkC1YPnTV63eZFs9fBnACoZocn_NVSrA';
+                
+                const formData = new FormData();
+                formData.append('emailAddress', email);
+                
+                try {
+                    await fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors'
+                    });
+                    
+                    alert("Thanks for joining! We'll notify you soon.");
+                    waitlistModal.classList.add('hidden');
+                    waitlistEmailInput.value = '';
+                } catch (error) {
+                    console.error('Error submitting to waitlist:', error);
+                    alert('Something went wrong. Please try again.');
+                }
+            } else {
+                alert('Please enter your email address');
+            }
+        });
+                    
+                    alert("Thanks for joining! We'll notify you soon.");
+                    waitlistModal.classList.add('hidden');
+                    waitlistEmailInput.value = '';
+                } catch (error) {
+                    console.error('Error submitting to waitlist:', error);
+                    alert('Something went wrong. Please try again.');
+                }
+            } else {
+                alert('Please enter your email address');
             }
         });
 
