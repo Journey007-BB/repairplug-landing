@@ -265,28 +265,40 @@
             waitlistModal.classList.add('hidden');
         });
 
-        joinWaitlistBtn.addEventListener('click', async () => {
+        joinWaitlistBtn.addEventListener('click', () => {
             const email = waitlistEmailInput.value;
             
             if (email) {
-                const formData = new FormData();
-                formData.append('entry.406017566', email);
+                // Create hidden iframe
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.name = 'hidden_iframe';
+                document.body.appendChild(iframe);
                 
-                try {
-                    await fetch('https://docs.google.com/forms/d/e/1FAIpQLSfNkOM1o2QgWY10mIGkC1YPnTV63eZFs9fBnACoZocn_NVSrA/formResponse', {
-                        method: 'POST',
-                        body: formData,
-                        mode: 'no-cors'
-                    });
-                    
-                    alert("Thanks for joining! We'll notify you soon.");
-                    waitlistModal.classList.add('hidden');
-                    waitlistEmailInput.value = '';
-                } catch (error) {
-                    alert("Thanks for joining! We'll notify you soon.");
-                    waitlistModal.classList.add('hidden');
-                    waitlistEmailInput.value = '';
-                }
+                // Create and submit form
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfNkOM1o2QgWY10mIGkC1YPnTV63eZFs9fBnACoZocn_NVSrA/formResponse';
+                form.target = 'hidden_iframe';
+                
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'entry.406017566';
+                input.value = email;
+                
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+                
+                // Clean up and show success
+                setTimeout(() => {
+                    document.body.removeChild(form);
+                    document.body.removeChild(iframe);
+                }, 1000);
+                
+                alert("Thanks for joining! We'll notify you soon.");
+                waitlistModal.classList.add('hidden');
+                waitlistEmailInput.value = '';
             } else {
                 alert('Please enter your email address');
             }
