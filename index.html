@@ -269,32 +269,12 @@
             const email = waitlistEmailInput.value;
             
             if (email) {
-                // Create hidden iframe
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.name = 'hidden_iframe';
-                document.body.appendChild(iframe);
+                // Submit to Google Form using direct form submission
+                const formUrl = `https://docs.google.com/forms/d/e/1FAIpQLSfNkOM1o2QgWY10mIGkC1YPnTV63eZFs9fBnACoZocn_NVSrA/formResponse?entry.406017566=${encodeURIComponent(email)}&submit=Submit`;
                 
-                // Create and submit form
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'https://docs.google.com/forms/d/e/1FAIpQLSfNkOM1o2QgWY10mIGkC1YPnTV63eZFs9fBnACoZocn_NVSrA/formResponse';
-                form.target = 'hidden_iframe';
-                
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'entry.406017566';
-                input.value = email;
-                
-                form.appendChild(input);
-                document.body.appendChild(form);
-                form.submit();
-                
-                // Clean up and show success
-                setTimeout(() => {
-                    document.body.removeChild(form);
-                    document.body.removeChild(iframe);
-                }, 1000);
+                // Use an image to trigger the submission (works around CORS)
+                const img = new Image();
+                img.src = formUrl;
                 
                 alert("Thanks for joining! We'll notify you soon.");
                 waitlistModal.classList.add('hidden');
